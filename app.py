@@ -22,7 +22,7 @@ def auth_view():
             j = json.dumps(r)
             keyset = jwk.JWKSet.from_json(j)
             print("Keyset", keyset)
-            mykey = keyset.get_key(kid="we45")
+            mykey = keyset.get_key(kid="SCENT2D")
             print("Key", mykey)
             decoded_token = jwt.JWT(key=mykey, jwt=auth_token)
             print("Decoded", decoded_token)
@@ -56,7 +56,7 @@ def init():
     with open("priv.json", "w") as priv:
         priv.write(json_key)
     pub_key["use"] = "sig"
-    pub_key["kid"] = "we45"
+    pub_key["kid"] = "SCENT2D"
     pub_key["alg"] = "RS256"
     final_pub = json.dumps({"keys": [pub_key]})
     with open("legit.json", "w") as legit:
@@ -76,9 +76,7 @@ def init():
 def login():
     try:
         if "username" in request.get_json() and "password" in request.get_json():
-            if request.get_json().get("username") == "admin" and request.get_json().get(
-                "password"
-            ):
+            if request.get_json().get("username") == "admin" and request.get_json().get("password") == "admin":
                 jku_url = "http://localhost:8000/legit.json"
                 priv = jwk.JWK.from_json(get_priv_key_string())
                 token = jwt.JWT(

