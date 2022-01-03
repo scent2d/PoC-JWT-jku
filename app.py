@@ -19,7 +19,9 @@ def auth_view():
         token_header = jpy.get_unverified_header(auth_token)
         if "jku" in token_header:
             r = requests.get(token_header.get("jku")).json()
+            print(r)
             j = json.dumps(r)
+            print(j)
             keyset = jwk.JWKSet.from_json(j)
             print("Keyset", keyset)
             mykey = keyset.get_key(kid="SCENT2D")
