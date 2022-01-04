@@ -17,12 +17,12 @@ def auth_view():
     auth_token = request.headers.get("Authorization")
     if auth_token:
         token_header = jpy.get_unverified_header(auth_token)
-        print("[+] token header: " + token_header)
+        # print("[+] token header: " + token_header)
         if "jku" in token_header:
             r = requests.get(token_header.get("jku")).json()
-            print("[+] r: " + r)
+            # print("[+] r: " + r)
             j = json.dumps(r)
-            print("[+] j: " + j)
+            # print("[+] j: " + token_header)
             keyset = jwk.JWKSet.from_json(j)
             print("Keyset", keyset)
             mykey = keyset.get_key(kid="SCENT2D")
